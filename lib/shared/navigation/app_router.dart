@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sca_shop/features/authentication/login_screen.dart';
 import 'package:sca_shop/features/authentication/register_screen.dart';
 import 'package:sca_shop/features/home/home_screen.dart';
-import 'package:sca_shop/features/prducts/prducts_screen.dart';
+import 'package:sca_shop/features/prducts/prducts_details_screen.dart';
 import 'package:sca_shop/shared/navigation/route_strings.dart';
 
 class AppRouter {

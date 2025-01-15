@@ -14,7 +14,10 @@ late final Dio _dio;
 
   ApiService._internal(){
     _dio = Dio(BaseOptions(
-      baseUrl: dotenv.get('base_url'),
+        baseUrl: dotenv.get("base_url"),
+    //     if (baseUrl == null || baseUrl.isEmpty) {
+    // throw Exception("Base URL not defined or empty in .env file.");
+    // }
       connectTimeout: Duration(seconds: 2),
       receiveTimeout: Duration(seconds: 2)
     ));
