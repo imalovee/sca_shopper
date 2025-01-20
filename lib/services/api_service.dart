@@ -18,8 +18,8 @@ late final Dio _dio;
     //     if (baseUrl == null || baseUrl.isEmpty) {
     // throw Exception("Base URL not defined or empty in .env file.");
     // }
-      connectTimeout: Duration(seconds: 2),
-      receiveTimeout: Duration(seconds: 2)
+      connectTimeout: Duration(seconds: 60),
+      receiveTimeout: Duration(seconds: 50)
     ));
 
     _dio.interceptors.add(PrettyDioLogger(

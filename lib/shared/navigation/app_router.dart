@@ -4,6 +4,9 @@ import 'package:sca_shop/features/authentication/login_screen.dart';
 import 'package:sca_shop/features/authentication/register_screen.dart';
 import 'package:sca_shop/features/home/home_screen.dart';
 import 'package:sca_shop/features/prducts/prducts_details_screen.dart';
+import 'package:sca_shop/features/prducts/products_list_screen.dart';
+import 'package:sca_shop/models/response_models/category_model.dart';
+import 'package:sca_shop/models/response_models/products_model.dart';
 import 'package:sca_shop/shared/navigation/route_strings.dart';
 
 class AppRouter {
@@ -17,8 +20,14 @@ class AppRouter {
         return CupertinoPageRoute(builder: (_) => const RegisterScreen());
       case AppRouteStrings.homeScreen:
         return CupertinoPageRoute(builder: (_) => const HomeScreen());
-      case AppRouteStrings.productScreen:
-        return CupertinoPageRoute(builder: (_) => const ProductsScreen());
+      case AppRouteStrings.productDetailsScreen:
+        return CupertinoPageRoute(builder: (_) =>  ProductsDetailsScreen(
+          productModel: settings.arguments as ProductModel? ,
+        ));
+        case AppRouteStrings.productListScreen:
+          return CupertinoPageRoute(builder: (_) =>  ProductsListScreen(
+            category: settings.arguments as CategoryModel?
+          ));
 
       default:
         return CupertinoPageRoute(builder: (_) => const LoginScreen());

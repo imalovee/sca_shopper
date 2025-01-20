@@ -1,6 +1,6 @@
 
 
-class Product {
+class ProductModel {
     final int? id;
     final String? title;
     final int? price;
@@ -10,7 +10,7 @@ class Product {
     final DateTime? updatedAt;
     final Category? category;
 
-    Product({
+    ProductModel({
         this.id,
         this.title,
         this.price,
@@ -21,7 +21,7 @@ class Product {
         this.category,
     });
 
-    factory Product.fromJson(Map<String, dynamic> json) => Product(
+    factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
         id: json["id"],
         title: json["title"],
         price: json["price"],

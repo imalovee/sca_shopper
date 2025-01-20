@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: AppRouter.navKey,
       onGenerateRoute: AppRouter.onGenerateRoute ,
-      initialRoute: 
+      initialRoute: CacheService().getToken() != null? AppRouteStrings.homeScreen:
       AppRouteStrings.loginScreen,
     );
   }
