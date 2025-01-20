@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:sca_shop/shared/colors.dart';
 
 
@@ -73,3 +74,15 @@ class AppButton extends StatelessWidget {
 
 final emailRegex = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
+ class CurrencyConverter{
+  final num conversionRate = 1650;
+   String formatToNaira({required double? priceInDollars}){
+    final priceInNaira = (priceInDollars ?? 0.0)* conversionRate;
+    return NumberFormat.currency(
+      locale: 'en_NG',
+      symbol: '₦',
+      decimalDigits: 2,
+    ).format(priceInNaira);
+  }
+}   

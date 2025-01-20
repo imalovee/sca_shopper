@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:sca_shop/models/request_models/login_model.dart';
+import 'package:sca_shop/repository/api_repository.dart';
 import 'package:sca_shop/shared/colors.dart';
 import 'package:sca_shop/shared/constants.dart';
 import 'package:sca_shop/shared/navigation/app_router.dart';
@@ -17,11 +19,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  final apiRepo = ApiRepository();
+  bool isLoading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
         child: Form(
+          key : _formKey,
           child: Padding(padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -54,7 +61,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 AppTextInput(
-                  controller: emailController,
+                  controller: passwordController,
                   label: 'Password',
                   inputFormatter: [
                      FilteringTextInputFormatter.deny(RegExp(r' '))
@@ -64,7 +71,38 @@ class _LoginScreenState extends State<LoginScreen> {
                  const SizedBox(
                   height: 50,
                 ),
-                AppButton(text: 'Login'),
+                if(isLoading)
+                Center(
+                  child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(AppColors.appColor),
+                  ),
+                )
+                else
+                AppButton(
+                  text: 'Login',
+                  action: ()async{
+                    if(_formKey.currentState!.validate() ?? false){
+                      setState(() {
+                        isLoading = true;
+                      });
+                      final userLogin = await apiRepo.loginUser(LoginModel(
+                        email: emailController.text,
+                        password: passwordController.text
+                      ));
+                      if(userLogin.login ?? false){
+                        AppRouter.pushAndClear(AppRouteStrings.homeScreen
+                        );
+                      }else{
+                        setState(() {
+                          isLoading = false;
+                        });
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(userLogin.error ?? "")));
+                      }
+                    }
+                    
+                  },
+                  ),
                 const SizedBox(
                   height: 20,
                 ),

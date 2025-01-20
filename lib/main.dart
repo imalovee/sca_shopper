@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sca_shop/services/cache_service.dart';
 import 'package:sca_shop/shared/navigation/app_router.dart';
 import 'package:sca_shop/shared/navigation/route_strings.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  CacheService().init();
+
+  await dotenv.load()  ;
+  
+  await CacheService().init();
+
   runApp(const MyApp());
 }
 
@@ -24,7 +29,8 @@ class MyApp extends StatelessWidget {
       ),
       navigatorKey: AppRouter.navKey,
       onGenerateRoute: AppRouter.onGenerateRoute ,
-      initialRoute: AppRouteStrings.loginScreen,
+      initialRoute: CacheService().getToken() != null? AppRouteStrings.homeScreen:
+      AppRouteStrings.loginScreen,
     );
   }
 }
